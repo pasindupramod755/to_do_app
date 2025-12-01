@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import service.AppService;
 
@@ -30,9 +31,6 @@ public class appContrallor implements Initializable {
     private TableColumn<?, ?> colDescription;
 
     @FXML
-    private TableColumn<?, ?> colId;
-
-    @FXML
     private TableColumn<?, ?> colTitle;
 
     @FXML
@@ -53,9 +51,20 @@ public class appContrallor implements Initializable {
     @FXML
     private TextField txtTitle;
 
+    @FXML
+    private AnchorPane taskPane;
+
+    @FXML
+    private AnchorPane completeTaskPane;
+
+    @FXML
+    private Button completeTaskBtn;
+
+    @FXML
+    private Button taskBtn;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
         colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
         colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
@@ -88,6 +97,10 @@ public class appContrallor implements Initializable {
 
     @FXML
     void btnCompleteTask(ActionEvent event) {
+        taskPane.setVisible(false);
+        completeTaskPane.setVisible(true);
+        taskBtn.setStyle("-fx-background-color: transparent;");
+        completeTaskBtn.setStyle("-fx-background-color:  #1e5a8f;");
         List<Node> removeList = new ArrayList<>();
         List<Integer> intList = new ArrayList<>();
 
@@ -112,6 +125,14 @@ public class appContrallor implements Initializable {
     @FXML
     void btnDelete(ActionEvent event) {
 
+    }
+
+    @FXML
+    void btnTaskAction(ActionEvent event) {
+        taskPane.setVisible(true);
+        completeTaskPane.setVisible(false);
+        taskBtn.setStyle("-fx-background-color:  #1e5a8f;");
+        completeTaskBtn.setStyle("-fx-background-color:  transparent;");
     }
 
 }
