@@ -79,4 +79,10 @@ public class AppRepository {
         preparedStatement.setString(3, taskDTO.getDescription());
         preparedStatement.executeUpdate();
     }
+
+    public void deleteHistory(TaskDTO selectedItem) throws SQLException {
+        PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("DELETE FROM completeTask WHERE id = ?");
+        preparedStatement.setInt(1,selectedItem.getId());
+        preparedStatement.executeUpdate();
+    }
 }

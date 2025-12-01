@@ -124,7 +124,9 @@ public class AppContrallor implements Initializable {
 
     @FXML
     void btnDelete(ActionEvent event) {
-
+        TaskDTO selectedItem = tblTask.getSelectionModel().getSelectedItem();
+        taskDTOObservableList = taskService.deleteHistory(selectedItem);
+        tblTask.refresh();
     }
 
     @FXML

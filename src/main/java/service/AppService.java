@@ -48,4 +48,14 @@ public class AppService {
             new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
         }
     }
+
+    public ObservableList<TaskDTO> deleteHistory(TaskDTO selectedItem) {
+        try {
+            taskRepository.deleteHistory(selectedItem);
+            completeTask.remove(selectedItem);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return completeTask;
+    }
 }
