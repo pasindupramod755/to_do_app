@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class appContrallor implements Initializable {
+public class AppContrallor implements Initializable {
 
     AppService taskService = new AppService();
     ObservableList<TaskDTO> taskDTOObservableList = taskService.getAllComplete();
@@ -99,8 +99,8 @@ public class appContrallor implements Initializable {
     void btnCompleteTask(ActionEvent event) {
         taskPane.setVisible(false);
         completeTaskPane.setVisible(true);
-        taskBtn.setStyle("-fx-background-color: transparent;");
-        completeTaskBtn.setStyle("-fx-background-color:  #1e5a8f;");
+        taskBtn.setStyle("-fx-background-color:  transparent;"+"-fx-text-fill: black");
+        completeTaskBtn.setStyle("-fx-background-color:  #1e5a8f;"+"-fx-text-fill: white");
         List<Node> removeList = new ArrayList<>();
         List<Integer> intList = new ArrayList<>();
 
@@ -131,8 +131,8 @@ public class appContrallor implements Initializable {
     void btnTaskAction(ActionEvent event) {
         taskPane.setVisible(true);
         completeTaskPane.setVisible(false);
-        taskBtn.setStyle("-fx-background-color:  #1e5a8f;");
-        completeTaskBtn.setStyle("-fx-background-color:  transparent;");
+        taskBtn.setStyle("-fx-background-color:  #1e5a8f;"+"-fx-text-fill: white");
+        completeTaskBtn.setStyle("-fx-background-color:  transparent;"+"-fx-text-fill: black");
     }
 
 }
