@@ -5,9 +5,11 @@ import dto.TaskDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class AppRepository {
 
@@ -48,4 +50,33 @@ public class AppRepository {
         return completeTask;
     }
 
+    public void getCompleteTask(List<Integer> intList) throws SQLException {
+        Connection connection = DBConnection.getInstance().getConnection();
+        for (int i = 0; i < intList.size(); i++) {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM task  where id = ?");
+            System.out.println(intList.get(i));
+            preparedStatement.setInt(1, intList.get(i));
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                TaskDTO taskDTO = new TaskDTO(
+                        resultSet.getInt("id"),
+                        resultSet.getString("title"),
+                        resultSet.getString("date"),
+                        resultSet.getString("description")
+                );
+                addCompleteTask(taskDTO);
+            }
+        }
+    }
+
+    private void addCompleteTask(TaskDTO taskDTO) throws SQLException {
+        PreparedStatement preparedStatement = DBConnection.getInstance()
+                .getConnection()
+                .prepareStatement("INSERT INTO completetask (title, date, description) VALUES ( ? , ? , ? )");
+
+        preparedStatement.setString(1, taskDTO.getTitle());
+        preparedStatement.setString(2, taskDTO.getDate());
+        preparedStatement.setString(3, taskDTO.getDescription());
+        preparedStatement.executeUpdate();
+    }
 }

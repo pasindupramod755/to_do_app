@@ -7,6 +7,7 @@ import javafx.scene.control.Alert;
 import repository.AppRepository;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class AppService {
 
@@ -35,6 +36,14 @@ public class AppService {
     public void addTask(TaskDTO taskDTO) {
         try {
             taskRepository.addTask(taskDTO);
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
+        }
+    }
+
+    public void getCompleteTask(List<Integer> intList) {
+        try {
+            taskRepository.getCompleteTask(intList);
         } catch (SQLException e) {
             new Alert(Alert.AlertType.WARNING, e.getMessage()).show();
         }

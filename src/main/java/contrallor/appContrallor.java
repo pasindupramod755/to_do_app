@@ -4,11 +4,19 @@ import dto.TaskDTO;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import service.AppService;
 
-public class appContrallor {
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
+
+public class appContrallor implements Initializable {
 
     AppService taskService = new AppService();
     ObservableList<TaskDTO> taskDTOObservableList = taskService.getAllComplete();
@@ -34,7 +42,7 @@ public class appContrallor {
     private Label lblTask;
 
     @FXML
-    private TableView<?> tblTask;
+    private TableView<TaskDTO> tblTask;
 
     @FXML
     private DatePicker txtDate;
@@ -44,6 +52,15 @@ public class appContrallor {
 
     @FXML
     private TextField txtTitle;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+        colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+        tblTask.setItems(taskDTOObservableList);
+    }
 
     @FXML
     void btnAddTask(ActionEvent event) {
@@ -71,7 +88,25 @@ public class appContrallor {
 
     @FXML
     void btnCompleteTask(ActionEvent event) {
+        List<Node> removeList = new ArrayList<>();
+        List<Integer> intList = new ArrayList<>();
 
+        for (Node node : gridTask.getChildren()) {
+            if (node instanceof CheckBox checkBox) {
+                if (checkBox.isSelected()) {
+                    removeList.add(node);
+                    intList.add(Integer.valueOf(checkBox.getId()));
+                }
+            }
+        }
+        taskService.getCompleteTask(intList);
+        gridTask.getChildren().removeAll(removeList);
+        taskDTOObservableList.clear();
+        taskDTOObservableList = taskService.getAllComplete();
+        tblTask.refresh();
+        if (gridTask.getChildren().isEmpty()) {
+            lblTask.setText("Not Select Task");
+        }
     }
 
     @FXML
