@@ -25,45 +25,6 @@ A simple, clean, and modern **JavaFX TODO Application** built with **Scene Build
 
 ---
 
-## 📂 Project Structure
-
-```
-src/
- ├── controller/
- ├── dto/
- ├── model/
- ├── util/
- ├── view/
- └── Main.java
-```
-
----
-
-## 🗃️ Database Schema
-
-### **Table: task**
-
-```
-CREATE TABLE task (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    date DATE NOT NULL,
-    description TEXT,
-    status VARCHAR(20) DEFAULT 'Pending'
-);
-```
-
----
-
-## 🔌 Database Connection (JDBC)
-
-```java
-Connection connection = DriverManager.getConnection(
-        "jdbc:mysql://localhost:3306/todoapp", "root", "password");
-```
-
----
-
 ## 🎨 UI / UX
 
 All UI layouts are built using **Scene Builder**, including:
@@ -83,27 +44,6 @@ All UI layouts are built using **Scene Builder**, including:
 4. Import project into IntelliJ / Eclipse / NetBeans
 5. Update DB credentials in the config file
 6. Run the project from the Main class
-
----
-
-## 📷 Screenshots (Optional)
-
-*Add your UI images here*
-
----
-
-## 🧪 Future Improvements
-
-* 🔹 Task categories
-* 🔹 Drag & Drop sorting
-* 🔹 Dark mode UI
-* 🔹 User login system
-
----
-
-## 🧑‍💻 Author
-
-**Pasindu Bandara**
 
 ---
 
